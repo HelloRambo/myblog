@@ -1,0 +1,83 @@
+{% extends  "base.html" %}
+
+{% block title %}
+{{ post.title }}
+{% endblock %}
+
+{% block body %}
+
+
+
+
+<div class="container">
+<div class="row">
+	<div class="col-md-12">
+		<article class="article the-font">
+		<!-- 显示评论统计 start -->
+		<a href="#SOHUCS" id="changyan_count_unit"></a>//评论数
+		<a href="#SOHUCS" id="changyan_parti_unit"></a>//参与数
+		<script type="text/javascript" src="http://assets.changyan.sohu.com/upload/plugins/plugins.count.js">
+		</script>
+		<!-- 显示评论统计 end -->
+
+		
+			<h2>{{ post.title }}</h2>
+			<p><small><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span><span style="color:#8C8C8C;">{{ post.timestamp }}</span></small></p>
+			<div class="post-alert">随意转载，不需署名，就说是你写的。若你愿意署名，我将不胜感激。</div>
+		{% if post.body_html  %}
+			<p>{{ post.body_html|safe}}</p>
+		{% else  %}	
+			<p>{{ post.body }}</p>
+		{% endif  %}
+			
+			<div style="border-top:1px solid #EBEBEB;padding:10px 5px;margin-top:20px;">
+				<a href="/category/{{ post.category.tag }}"><span class="label label-default"><span class="glyphicon glyphicon-leaf" aria-hidden="true"></span> {{ post.category.tag }}</span></a>
+				<a></a>
+				<a href="/" class="btn btn-xs " style="float:right">返回首页<span class=" glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
+				{% if current_user.is_authenticated  %}
+				<a href="{{ url_for('.edit', id=post.id)  }}" class="btn btn-xs " style="float:right">Edit<span class=" glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
+				<a href="{{ url_for('.delete', id=post.id)  }}" class="btn
+                    btn-xs " style="float:right">Delete<span class=" glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
+				{% endif  %}
+			</div>
+			</div>
+		</article>
+		<article class="article the-font">
+		<!-- 打赏 start  -->
+		<!-- 代码1：放在页面需要展示的位置  -->
+		<!-- 如果您配置过sourceid，建议在div标签中配置sourceid、cid(分类id)，没有请忽略  -->
+		<div id="cyReward" role="cylabs" class="div" data-use="reward"></div>
+		<!-- 打赏 end  -->
+
+
+		<!-- 评论系统 PC和WAP自适应版 start -->
+		<div id="SOHUCS" sid="{{ post.id  }}" ></div> 
+		<script type="text/javascript"> 
+		(function(){ 
+		 var appid = 'cysytXT8x'; 
+		 var conf = 'prod_c3236a0f36ba6ca10ceaaeff406792d2'; 
+		 var width = window.innerWidth || document.documentElement.clientWidth; 
+		 if (width < 960) { 
+		 window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+		<!-- 评论系统 PC和WAP自适应版 end -->
+
+		<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+		<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+		<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+		<script type="text/javascript" charset="utf-8" src="http://changyan.itc.cn/js/lib/jquery.js"></script>
+		<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysytXT8x"></script>
+
+		<!-- 读取配置 end-->
+
+		</article>
+		
+		
+  	</div>
+</div>
+</div>
+
+
+
+
+{% endblock %}
